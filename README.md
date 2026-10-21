@@ -9,8 +9,8 @@ question to 59 Boolean formulas; this campaign refutes them case by case, each r
 by the formally verified checker cake_lpr, so that anyone can verify the result without trusting
 the program that ran it.
 
-**Status:** running. The journals, the certificates, the audits and the list of assignments are
-published together, on Zenodo, when the campaign ends.
+**Status:** open for contributors. The journals, the certificates, the audits and the list of
+assignments are published together, on Zenodo, when the campaign ends.
 
 ## How to help
 
@@ -26,8 +26,8 @@ can give, the rest goes to someone else.
    You need Linux on x86-64 (or Windows with WSL 2) and Docker.
 2. Offer time: open an issue **[Offer computing time](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/issues/new?template=offer.yml)**, or write
    to pirozhkov.andrey.u@gmail.com.
-3. You receive a worker name and the numbers of your units. Everything else is here, with its
-   SHA-256: nothing is sent by email.
+3. You receive a worker name and the numbers of your units; no files are sent to you. Everything
+   else is here, each file with its SHA-256.
 4. Compute, then email the archive of the journal (about 1–2 MB per unit).
 
 Without Linux on x86-64, a Linux x86-64 virtual machine with Docker, for example in a cloud,

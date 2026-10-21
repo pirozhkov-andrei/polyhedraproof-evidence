@@ -85,17 +85,17 @@ W=wNNN
 UNITS="map07-1 map07-2 map07-3"
 ```
 
-Then run, unchanged:
+Then run, unchanged. Its first two lines save your settings in `~/faces12/wNNN.env`: in any new
+terminal later (the next day, after a reboot), `. ~/faces12/wNNN.env` sets them again.
 
 ```sh
-IO=~/faces12/$W
+printf 'W=%s\nUNITS="%s"\nIO="%s"\nWRAP="bash %s"\nIMAGE=faces12-campaign:1.0.0\n' "$W" "$UNITS" "$HOME/faces12/$W" "$HOME/faces12/polyhedraproof-1.0.0/pipeline/faces12-worker.sh" > ~/faces12/$W.env
+echo 'unit_file() { case $1 in rest-*) echo "units-rest/$1.json" ;; *) echo "units/${1%-*}/shard-${1##*-}.json" ;; esac; }' >> ~/faces12/$W.env
+. ~/faces12/$W.env
 mkdir -p "$IO/inbox" "$IO/units-rest"
 tar -xzf ~/faces12/campaign/campaign-1.0.0.tar.gz -C "$IO"
 tar -xzf ~/faces12/release/polyhedraproof-1.0.0-source.tar.gz -C ~/faces12
 head -c -1 "$IO/campaign.json" | sha256sum   # must be the campaign ID in the registry's README
-WRAP="bash $HOME/faces12/polyhedraproof-1.0.0/pipeline/faces12-worker.sh"
-IMAGE=faces12-campaign:1.0.0
-unit_file() { case $1 in rest-*) echo "units-rest/$1.json" ;; *) echo "units/${1%-*}/shard-${1##*-}.json" ;; esac; }
 ```
 
 A unit named like `map07-2` is the file `units/map07/shard-2.json` of the campaign archive. A unit
@@ -149,6 +149,8 @@ Right after the launch, `status.absent` for a few seconds is normal.
 
 ## 5. While it runs
 
+In a new terminal, first: `. ~/faces12/wNNN.env` (with your worker name).
+
 - **Status:** `$WRAP status --worker $W --image $IMAGE` shows the closed and open cases and the
   export of the journal.
 - **Pause and resume** (also after a reboot): `$WRAP stop --worker $W`, later
@@ -180,7 +182,7 @@ Right after the launch, `status.absent` for a few seconds is normal.
 ## 6. Send the results
 
 When the container has exited with 0, or when you have to stop for good (`$WRAP stop --worker $W`
-first):
+first; in a new terminal, `. ~/faces12/wNNN.env` before anything):
 
 ```sh
 tar -czf ~/results-$W.tar.gz -C "$IO" export && sha256sum ~/results-$W.tar.gz && cat "$IO/export/export.json"
@@ -196,9 +198,9 @@ the journal arrived intact.
 
 ## 7. More work for the same worker
 
-If you are given more units, set `UNITS` to the new list and repeat, in the same terminal (or
-after setting `W`, `IO`, `WRAP`, `IMAGE` and `unit_file` again as in step 3), the download of
-`rest-` units and the check that fills the inbox. Then, if the container has exited:
+If you are given more units: `. ~/faces12/wNNN.env`, then set `UNITS` to the new list
+(`UNITS="map09-1 map09-2"`) and repeat the two commands of step 3 that download `rest-` units and
+fill the inbox. Then, if the container has exited:
 
 ```sh
 $WRAP start --worker $W
