@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Write to the organizer instead
+    url: mailto:pirozhkov.andrey.u@gmail.com
+    about: If you prefer not to post publicly
+  - name: The software, the article and their issues
+    url: https://github.com/pirozhkov-andrei/polyhedraproof
+    about: Questions about the code or the mathematics belong there
