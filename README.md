@@ -9,8 +9,9 @@ question to 59 Boolean formulas; this campaign refutes them case by case, each r
 by the formally verified checker cake_lpr, so that anyone can verify the result without trusting
 the program that ran it.
 
-**Status:** open for contributors. The journals, the certificates, the audits and the list of
-assignments are published together, on Zenodo, when the campaign ends.
+**Status:** open for contributors. Each returned journal is attached by its contributor to their
+issue here, with the organizer's receipt. The complete evidence (every journal, the certificates,
+the audits and the list of assignments) is published on Zenodo when the campaign ends.
 
 ## How to help
 
@@ -24,11 +25,15 @@ can give, the rest goes to someone else.
 
 1. Read the guide: [CONTRIBUTING.md](CONTRIBUTING.md).
    You need Linux on x86-64 (or Windows with WSL 2) and Docker.
-2. Offer time: open an issue **[Offer computing time](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/issues/new?template=offer.yml)**, or write
-   to pirozhkov.andrey.u@gmail.com.
-3. You receive a worker name and the numbers of your units; no files are sent to you. Everything
-   else is here, each file with its SHA-256.
-4. Compute, then email the archive of the journal (about 1–2 MB per unit).
+2. Offer time: open an issue **[Offer computing time](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/issues/new?template=offer.yml)**.
+   A GitHub account is needed: the assignment, the results and the receipt all go through your
+   issue. One issue is one worker with at most 10 units (10 units are roughly 600 to 1200
+   core-hours); to give more, open the next issue once the previous one is confirmed, up to about
+   3000 core-hours in all. For more than that, write to pirozhkov.andrey.u@gmail.com first.
+3. You receive a worker name and the numbers of your units in a reply there; no files are sent to
+   you. Everything else is here, each file with its SHA-256.
+4. Compute, then attach the archive of the journal (about 1–2 MB per unit) to a comment in your
+   issue ([step 6](CONTRIBUTING.md#6-send-the-results)). It is public from then on.
 
 Without Linux on x86-64, a Linux x86-64 virtual machine with Docker, for example in a cloud,
 works.
@@ -43,6 +48,7 @@ works.
 | [`campaign-1.0.0/campaign.json`](campaign-1.0.0/campaign.json) | the campaign document; its ID is `0f8b35ed0805b2df8100ea5745998f9e636fe1194a2299db2ee44472179dda2f` (`head -c -1 campaign.json \| sha256sum`) |
 | [`campaign-1.0.0/units.sha256`](campaign-1.0.0/units.sha256) | the SHA-256 of every unit file of the archive |
 | [`campaign-1.0.0/units-rest/`](campaign-1.0.0/units-rest/) | the open parts of abandoned units, planned again (`units-rest.sha256`) |
+| [issues labelled `offer`](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/issues?q=label%3Aoffer) | the offers, the assignments, the returned journals (attached) and the receipts with their heads |
 
 Every commit of this repository is signed, and the release `campaign-1.0.0` is immutable: the plan
 and the campaign were fixed here before the first unit was handed out.

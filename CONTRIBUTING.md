@@ -55,7 +55,7 @@ sha256sum -c SHA256SUMS
 ```
 
 Both checks must print `OK`. The release of the software is also archived on Zenodo
-([doi:10.5281/zenodo.23434449](https://doi.org/10.5281/zenodo.23434449)), with the same SHA-256.
+([doi:10.5281/zenodo.23491042](https://doi.org/10.5281/zenodo.23491042)), with the same SHA-256.
 
 ## 2. Load and check the image
 
@@ -78,7 +78,7 @@ organizer.
 ## 3. Set up your worker
 
 Put in your worker name and the list of your units, exactly as in the reply you received
-(any number of units; they all run in one worker, launched once):
+(at most 10 units; they all run in one worker, launched once):
 
 ```sh
 W=wNNN
@@ -175,9 +175,9 @@ In a new terminal, first: `. ~/faces12/wNNN.env` (with your worker name).
 | `running 0` | still working | wait |
 | `exited 0` | all your units are closed | step 6 |
 | `exited 130` | stopped by you | `$WRAP start --worker $W` to continue |
-| `exited 1` | work left open: a time limit you gave (`--max-hours`), or the resources did not fit | `$WRAP logs --worker $W --tail 50`, write to the organizer |
+| `exited 1` | work left open: a time limit you gave (`--max-hours`), or the resources did not fit | `$WRAP logs --worker $W --tail 50`, write in your issue |
 | `exited 2` | a model was found | send the results now (step 6): it needs examination |
-| `exited 3`, `4`, `5`, `6` | configuration, integrity, tool or anomaly | send `logs --tail 100` and `status` to the organizer; don't start again |
+| `exited 3`, `4`, `5`, `6` | configuration, integrity, tool or anomaly | paste the output of `logs --tail 100` and `status` into a comment in your issue; don't start again |
 
 ## 6. Send the results
 
@@ -185,29 +185,36 @@ When the container has exited with 0, or when you have to stop for good (`$WRAP 
 first; in a new terminal, `. ~/faces12/wNNN.env` before anything):
 
 ```sh
-tar -czf ~/results-$W.tar.gz -C "$IO" export && sha256sum ~/results-$W.tar.gz && cat "$IO/export/export.json"
+JOURNAL=$(grep -o '"file":"journal\.[0-9]*\.jsonl"' "$IO/export/export.json" | cut -d'"' -f4) && tar --owner=0 --group=0 --numeric-owner -czf ~/results-$W.tar.gz -C "$IO" export/export.json "export/$JOURNAL" && (cd ~ && sha256sum results-$W.tar.gz) && cat "$IO/export/export.json"
 ```
 
-Email the organizer (pirozhkov.andrey.u@gmail.com) the file `results-wNNN.tar.gz` (about 1–2 MB
-per unit; for a large one, a link to it), the `sha256sum` line and the `export.json` line. The
-reply confirms that the journal arrived intact and repeats its head: keep that email, it is your
-record of what you sent.
+The archive holds only the export descriptor and the journal it names. Write a comment in your
+offer issue: attach the file `results-wNNN.tar.gz` from your home directory (drag it into the
+comment box; about 1–2 MB per unit, GitHub takes up to 25 MB) and paste the two lines the command
+printed, the `sha256sum` line and the `export.json` line. Only comments by the author of the issue
+are taken, so post from the account that opened it. Under WSL, `cd ~ && explorer.exe .` opens your
+home directory in Windows; if the machine has no browser, copy the file to one that has (for
+example with `scp`).
+
+If the file is larger than 25 MB (with at most 10 units it should not be), do not send it: write
+in your issue, and the organizer will tell you how. Please send no files by email and no links to
+other sites.
+
+The file is public from the moment you attach it: anyone with the link can download it. The reply
+in your issue confirms that the journal arrived intact and repeats its head: it is your record of
+what you sent.
 
 **Keep** the container, its volumes, `$IO` and your backups until the organizer confirms that
 the journal arrived intact.
 
-## 7. More work for the same worker
+## 7. More work
 
-If you are given more units: `. ~/faces12/wNNN.env`, then set `UNITS` to the new list
-(`UNITS="map09-1 map09-2"`) and repeat the two commands of step 3 that download `rest-` units and
-fill the inbox. Then, if the container has exited:
-
-```sh
-$WRAP start --worker $W
-```
-
-The worker accepts the new units and continues with the same name and the same journal. Do not
-`launch` it again.
+One issue is one worker with at most 10 units, so that its archive stays well below GitHub's
+25 MB. To compute more, open a new [offer issue](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/issues/new?template=offer.yml) once the organizer has confirmed the
+results of this one, and name this issue in it. You get a new worker name and new units: start at
+step 3 with them (the downloads and the image of steps 1 and 2 stay), and send their results from
+the new issue. Up to about 3000 core-hours in all go this way, one issue after another; for more,
+write to the organizer (pirozhkov.andrey.u@gmail.com) first.
 
 ## 8. When everything is confirmed
 
@@ -221,17 +228,18 @@ docker volume rm faces12-results-$W faces12-work-$W
 - change the policy (`--policy-override`), the proof mode or the image;
 - run two workers with the same name, or give your worker another name;
 - edit anything in `$IO` except what step 3 does (unit files into `inbox/` and `units-rest/`);
-- delete the volumes before the organizer confirms.
+- delete the volumes before the organizer confirms;
+- send files by email or links to other sites: results go only into your offer issue.
 
 ## What is in your journal, and what will be published
 
 The journal records the worker name, the processor model, the hashes of the tools and, for each
 case, its outcome, the hash and size of its proof, and the processor time and memory used. It
-records no host name, user name or host path. The container runs without network access. The
-journals of the campaign are published (CC BY 4.0) with its evidence when the campaign ends, so
-that anyone can check the result. You are credited as you choose in your offer, or not named at
-all.
+records no host name, user name or host path. The container runs without network access. Your
+journal is public from the moment you attach it to your issue, and all the journals of the
+campaign are published (CC BY 4.0) with its evidence when the campaign ends, so that anyone can
+check the result. You are credited as you choose in your offer, or not named at all.
 
-Questions: write to the organizer. The procedure in full is in
+Questions: ask in your issue, or write to the organizer. The procedure in full is in
 [RUNNING](https://github.com/pirozhkov-andrei/polyhedraproof/blob/v1.0.0/docs/RUNNING.md) and
 [COMPUTE](https://github.com/pirozhkov-andrei/polyhedraproof/blob/v1.0.0/docs/COMPUTE.md).

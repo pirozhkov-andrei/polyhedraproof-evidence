@@ -26,7 +26,8 @@ the running records change.
 
 Each formula is divided into 4 units of 1024 cases (`cubeproof shard --formula KEY --machines 4`):
 236 units, files `units/KEY/shard-K.json` (KEY from `map01` to `map59`, K from 1 to 4), SHA-256
-in `units.sha256`. A unit is assigned to one worker with a name `wNNN` that is used once; the
+in `units.sha256`. A unit is assigned to a worker with a name `wNNN` that is used once; a worker
+gets at most 10 units, through one offer issue of this repository; the
 organizer keeps the list of assignments (unit, worker, dates) and publishes it, without personal
 data, with the final evidence. The open part of an abandoned unit is planned again from a
 certificate of all returned journals and assigned to a new worker; its file goes into
@@ -40,10 +41,11 @@ returned journals as the campaign goes on.
 
 ## How the result will be checked
 
-- **Journals and heads:** every returned journal is checked on arrival (`cubeproof journal
-  verify`); its head, record count and length are recorded, and the receipt the contributor gets
-  states them, so that every contributor holds a dated record of the journal they sent. The list
-  of heads is published with the final evidence.
+- **Journals and heads:** every returned journal is attached by its contributor to their offer
+  issue in this repository and checked on arrival (`cubeproof journal verify`); its head, record
+  count and length are recorded, and the organizer's receipt in the same issue states them, so
+  that every contributor holds a dated, public record of the journal they sent. The list of heads
+  is published with the final evidence.
 - **Certification:** after every return, `cubeproof certify` and the independent
   `tools/certify_min.py` on all returned journals; they must agree byte for byte.
 - **Audit of every closed formula:** a strict audit (`cubeproof audit --sample 50`) of the
@@ -65,7 +67,8 @@ returned journals as the campaign goes on.
 
 - before the start, here: this plan, the campaign files and the guide for contributors (signed
   commits), and the campaign archive as the immutable release `campaign-1.0.0`; during the
-  campaign only the files of units planned again (`units-rest/`);
+  campaign, the files of units planned again (`units-rest/`) and, in the issues, each returned
+  journal with its receipt;
 - when the campaign ends, on Zenodo with a DOI: the final evidence package (campaign, bundles,
   every journal, the certificates of both certifiers), the audit reports, the list of journal
   heads recorded on arrival (`utc  journal  seq  head  offset  worker`), the list of assignments

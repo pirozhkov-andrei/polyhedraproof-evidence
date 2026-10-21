@@ -7,11 +7,22 @@ body:
     attributes:
       value: |
         Thank you! Please read [CONTRIBUTING.md](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/blob/main/CONTRIBUTING.md) first.
-        How long a unit of work takes is known only roughly: in the pilot computation a unit took
-        57 to 117 core-hours, and units of other formulas may differ several-fold. Partial work
-        counts. You will receive a worker name and the numbers of your units in a reply here;
-        everything else is in this repository. If you prefer not to post publicly, write to
-        pirozhkov.andrey.u@gmail.com instead.
+        How long a unit of work takes is known only roughly: in the pilot computation a unit took 57
+        to 117 core-hours, and units of other formulas may differ several-fold. Partial work counts.
+        Everything goes through this issue: you receive a worker name and the numbers of your units
+        in a reply here, you attach your results to a comment here (public from then on), and the
+        receipt comes here; everything else is in this repository. One issue is one worker with at
+        most 10 units (10 units are roughly 600 to 1200 core-hours); to give more, open the next
+        issue once this one is confirmed, up to about 3000 core-hours in all. For more than that,
+        write to pirozhkov.andrey.u@gmail.com first.
+  - type: input
+    id: who
+    attributes:
+      label: Who you are
+      description: Name and affiliation, or a page about you (homepage, ORCID)
+      placeholder: "Jane Doe, University of Somewhere, https://orcid.org/0000-0000-0000-0000"
+    validations:
+      required: true
   - type: dropdown
     id: platform
     attributes:
@@ -34,7 +45,7 @@ body:
     id: offer
     attributes:
       label: Core-hours offered
-      description: Roughly; partial work counts as well
+      description: For this issue, roughly (at most 10 units; 10 units are about 600 to 1200 core-hours); partial work counts as well
       placeholder: "400"
     validations:
       required: true
@@ -46,10 +57,18 @@ body:
     validations:
       required: true
   - type: input
+    id: earlier
+    attributes:
+      label: Earlier issues
+      description: Your earlier offer issues here, if any
+      placeholder: "#12"
+    validations:
+      required: false
+  - type: input
     id: credit
     attributes:
       label: Credit
-      description: How you would like to be acknowledged (name, affiliation), or "anonymous"
+      description: How you would like to be acknowledged in the publication (name, affiliation), or "not named"
     validations:
       required: true
   - type: checkboxes
@@ -57,7 +76,7 @@ body:
     attributes:
       label: I understand that
       options:
-        - label: the journal my worker writes will be published with the evidence of the campaign when it ends (CC BY 4.0); it contains the worker name, the processor model and the computation, no host name, user name or paths
+        - label: the journal my worker writes is public from the moment I attach it to this issue, and is published with the evidence of the campaign when it ends (CC BY 4.0); it contains the worker name, the processor model and the computation, no host name, user name or paths
           required: true
         - label: a sample of the cases my worker closes will be recomputed on another machine
           required: true
