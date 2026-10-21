@@ -6,77 +6,56 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you! Please read [CONTRIBUTING.md](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/blob/main/CONTRIBUTING.md) first.
-        How long a unit of work takes is known only roughly: in the pilot computation a unit took 57
-        to 117 core-hours, and units of other formulas may differ several-fold. Partial work counts.
-        Everything goes through this issue: you receive a worker name and the numbers of your units
-        in a reply here, you attach your results to a comment here (public from then on), and the
-        receipt comes here; everything else is in this repository. One issue is one worker with at
-        most 10 units (10 units are roughly 600 to 1200 core-hours); to give more, open the next
-        issue once this one is confirmed, up to about 3000 core-hours in all. For more than that,
-        write to pirozhkov.andrey.u@gmail.com first.
-  - type: input
-    id: who
-    attributes:
-      label: Who you are
-      description: Name and affiliation, or a page about you (homepage, ORCID)
-      placeholder: "Jane Doe, University of Somewhere, https://orcid.org/0000-0000-0000-0000"
-    validations:
-      required: true
-  - type: dropdown
-    id: platform
-    attributes:
-      label: Platform
-      options:
-        - Linux on x86-64, with Docker
-        - Windows 10/11 with WSL 2 and Docker Desktop
-        - A Linux x86-64 virtual machine with Docker (for example in a cloud)
-    validations:
-      required: true
+        Thank you for helping! How it works: [CONTRIBUTING.md](https://github.com/pirozhkov-andrei/polyhedraproof-evidence/blob/main/CONTRIBUTING.md).
+        A unit of work takes roughly 60 to 120 core-hours (known only roughly), and partial work
+        counts. One issue is one worker with at most 10 units: you get your units in a reply here
+        and attach your results here. To give more, open a new issue once this one is done. For
+        more than 3000 core-hours in all, please write to pirozhkov.andrey.u@gmail.com first.
   - type: input
     id: machine
     attributes:
       label: Machine
-      description: Physical cores, memory, free disk
-      placeholder: "16 cores, 64 GiB, 300 GB free"
+      description: Cores, memory, free disk, and Linux or Windows
+      placeholder: "16 cores, 64 GB, 300 GB free, Linux"
     validations:
       required: true
   - type: input
     id: offer
     attributes:
-      label: Core-hours offered
-      description: For this issue, roughly (at most 10 units; 10 units are about 600 to 1200 core-hours); partial work counts as well
+      label: Core-hours for this issue
+      description: Roughly; 10 units are about 600 to 1200 core-hours
       placeholder: "400"
     validations:
       required: true
   - type: input
     id: availability
     attributes:
-      label: Availability
-      placeholder: "around the clock for two weeks / nights and weekends for a month"
+      label: When
+      placeholder: "around the clock for two weeks / nights for a month"
     validations:
       required: true
   - type: input
     id: earlier
     attributes:
-      label: Earlier issues
-      description: Your earlier offer issues here, if any
+      label: Your earlier issues here (optional)
       placeholder: "#12"
     validations:
       required: false
   - type: input
     id: credit
     attributes:
-      label: Credit
-      description: How you would like to be acknowledged in the publication (name, affiliation), or "not named"
+      label: Name for the acknowledgements (optional)
+      description: Leave empty if you prefer not to be named
     validations:
-      required: true
+      required: false
   - type: checkboxes
     id: terms
     attributes:
-      label: I understand that
+      label: Please confirm
       options:
-        - label: the journal my worker writes is public from the moment I attach it to this issue, and is published with the evidence of the campaign when it ends (CC BY 4.0); it contains the worker name, the processor model and the computation, no host name, user name or paths
+        - label: my machine runs Linux on x86-64, or Windows 10/11 with WSL 2, and Docker
           required: true
-        - label: a sample of the cases my worker closes will be recomputed on another machine
+        - label: my results are public once I attach them here (CC BY 4.0); they contain the worker name, the processor model and the computation, but no names or paths from my computer
+          required: true
+        - label: some of the cases I compute will be recomputed elsewhere as a check
           required: true
