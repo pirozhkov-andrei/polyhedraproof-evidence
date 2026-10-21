@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Write to the organizer
-    url: mailto:pirozhkov.andrey.u@gmail.com
-    about: Questions, and offers of more than 3000 core-hours; other offers and all results go through an issue "Offer computing time"
+    url: https://github.com/pirozhkov-andrei/polyhedraproof-evidence#contact
+    about: Email for questions and for offers of more than 3000 core-hours
   - name: The software, the article and their issues
     url: https://github.com/pirozhkov-andrei/polyhedraproof
     about: Questions about the code or the mathematics belong there

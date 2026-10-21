@@ -60,5 +60,11 @@ All workers and audits use Polyhedraproof 1.0.0, release image `faces12-campaign
 (`sha256:0b3680264a8ef18f3c75de639ccde69c4b9b15db0974c51b23abe5b6035e5ce2` with Docker's classic
 store), from the [release v1.0.0](https://github.com/pirozhkov-andrei/polyhedraproof/releases/tag/v1.0.0).
 
-Data in this repository and the evidence of the campaign: CC BY 4.0. Contact: Andrei Pirozhkov,
-pirozhkov.andrey.u@gmail.com, [ORCID 0009-0008-6901-7843](https://orcid.org/0009-0008-6901-7843).
+Data in this repository and the evidence of the campaign: CC BY 4.0.
+
+## Contact
+
+Andrei Pirozhkov, pirozhkov.andrey.u@gmail.com,
+[ORCID 0009-0008-6901-7843](https://orcid.org/0009-0008-6901-7843). Write for questions, and for
+offers of more than 3000 core-hours; other offers and all results go through an issue
+([How to help](#how-to-help)).
